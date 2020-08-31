@@ -18,6 +18,10 @@ public class UsersResource {
     }
 
     @GET()
+    public Response getUsers() {
+        return Response.ok().entity(usersService.getUsers()).build();
+    }
+    @GET()
     @Path("/{id}")
     public Response getUser(@PathParam("id") final int id) {
         return Response.ok().entity(usersService.getUser(id)).build();
