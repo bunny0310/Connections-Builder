@@ -1,11 +1,33 @@
+buildscript {
+    repositories {
+//        maven {
+//            url "https://plugins.gradle.org/m2/"
+//        }
+        jcenter()
+    }
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:6.0.0"
+    }
+}
+
 plugins {
     id 'java'
 }
 
+apply from : "./docker/UsersService/build.gradle"
+apply plugin : 'java'
+apply plugin : 'application'
+apply plugin: "com.github.johnrengelman.shadow"
+
+
+
 group 'org.example'
 version '1.0-SNAPSHOT'
 
+mainClassName = "com.cb.CBUsersService"
+
 repositories {
+    jcenter()
     mavenCentral()
 }
 
@@ -15,4 +37,12 @@ dependencies {
     compile group: 'io.dropwizard', name: 'dropwizard-db', version: '1.2.2'
     compile group: 'io.dropwizard', name: 'dropwizard-jdbi', version: '1.2.2'
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.8-dmr'
+}
+
+run {
+    args "server", "${projectDir}/config/config.yml"
+}
+
+wrapper  {
+    gradleVersion = "4.0"
 }
