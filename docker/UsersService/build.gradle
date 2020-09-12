@@ -3,7 +3,7 @@ task copyApp(type: Copy, dependsOn: build) {
         include "*-all.jar"
         rename { "UsersService.jar" }
     }
-    from(fileTree("${projectDir}/config/").files) {
+    from(fileTree("${projectDir}/config_prod/").files) {
         include "**/*.yml"
     }
     into("${rootDir}/docker/UsersService")

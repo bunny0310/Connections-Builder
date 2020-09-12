@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mysql
+  name: mysql-db
+
+spec:
+
+  selector:
+    matchLabels:
+      app: mysql
+
+  strategy:
+    type: Recreate
+
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql
+
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_DATABASE
+          value: "backend"
+
+        - name: MYSQL_ROOT_PASSWORD
+          value: "root"
+
+        - name: MYSQL_ROOT_USERNAME
+          value: "root"
+
+        - name: MYSQL_ROOT_HOST
+          value: "%"
+
+
+        image: mysql:5.5
+        imagePullPolicy: IfNotPresent
+        name: mysql-db
+        ports:
+        - containerPort: 3306
+          name: mysql-db
+
+        resources: {}
+
+        volumeMounts:
+        - mountPath: var/lib/mysql1
+          name: mysql-data
+
+      restartPolicy: Always
+      schedulerName: default-scheduler
+
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+
+      volumes:
+      - name: mysql-data
+        persistentVolumeClaim:
+          claimName: mysql-data
