@@ -3,6 +3,8 @@ package com.cb.business.services;
 import db.UsersDAO;
 import model.User;
 
+import java.util.List;
+
 public class UsersService {
     private UsersDAO usersDAO;
 
@@ -12,6 +14,10 @@ public class UsersService {
 
     public User getUser(int id) {
         return this.usersDAO.getUser(id);
+    }
+
+    public List<User> getUsers() {
+        return this.usersDAO.getUsers();
     }
 
     public void addUser(User user) {
