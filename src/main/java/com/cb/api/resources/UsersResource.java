@@ -1,6 +1,7 @@
 package com.cb.api.resources;
 
 import com.cb.business.services.UsersService;
+import com.cb.cache.LRUCache;
 import model.User;
 
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,8 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class UsersResource {
     private UsersService usersService;
+    private LRUCache<User> cache= new LRUCache<User>(10);
+
     public UsersResource(UsersService usersService) {
         this.usersService = usersService;
     }
@@ -22,13 +25,15 @@ public class UsersResource {
         return Response.ok().entity(usersService.getUsers()).build();
     }
     @GET()
-    @Path("/test")
-    public Response test() {
-        return Response.ok().entity("ishaan").build();
-    }
-    @GET()
     @Path("/{id}")
     public Response getUser(@PathParam("id") final int id) {
+        if(cache.get(id) != null) {
+            return Response.ok().entity("from cache: " + cache.get(id)).build();
+        }
+        User ret = usersService.getUser(id);
+        if(ret != null) {
+            cache.put(id, ret);
+        }
         return Response.ok().entity(usersService.getUser(id)).build();
     }
 
