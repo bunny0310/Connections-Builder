@@ -4,7 +4,7 @@ task copyAppProduction(type: Copy, dependsOn: build) {
         rename { "UsersService.jar" }
     }
     from(fileTree("${projectDir}/config/").files) {
-        include "**/*.yml"
+        include "**/*_prod.yml"
     }
     into("${rootDir}/docker/production")
 }

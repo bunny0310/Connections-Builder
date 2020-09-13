@@ -22,6 +22,11 @@ public class UsersResource {
         return Response.ok().entity(usersService.getUsers()).build();
     }
     @GET()
+    @Path("/test")
+    public Response test() {
+        return Response.ok().entity("ishaan").build();
+    }
+    @GET()
     @Path("/{id}")
     public Response getUser(@PathParam("id") final int id) {
         return Response.ok().entity(usersService.getUser(id)).build();
