@@ -15,7 +15,7 @@ steps:
     id: Push
     args:
     - 'push'
-    - 'gcr.io/$PROJECT_ID/users-service:$SHORT_SHA'
+    - 'gcr.io/$PROJECT_ID/users-service:v1'
 
   - name: 'gcr.io/cloud-builders/kubectl'
     id: Deploy
