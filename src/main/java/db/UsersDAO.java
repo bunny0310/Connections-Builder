@@ -28,4 +28,7 @@ public interface UsersDAO {
     @SqlUpdate("Delete FROM users WHERE id = :id")
     public void deleteUser(@Bind("id") final int id);
 
+    @SqlQuery("SELECT * FROM users ORDER BY id DESC LIMIT 1")
+    public User getRecentlyAddedUser();
+
 }

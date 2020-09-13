@@ -28,7 +28,8 @@ public class UsersResource {
     @Path("/{id}")
     public Response getUser(@PathParam("id") final int id) {
         if(cache.get(id) != null) {
-            return Response.ok().entity("from cache: " + cache.get(id)).build();
+
+            return Response.ok().entity(cache.get(id)).build();
         }
         User ret = usersService.getUser(id);
         if(ret != null) {
@@ -39,8 +40,19 @@ public class UsersResource {
 
     @POST()
     public Response addUser(final @NotNull User user) {
-        this.usersService.addUser(user);
-        return Response.ok().entity(usersService.getUser(user.getId())).build();
+        User newUser = null;
+        try{
+            newUser = this.usersService.addUser(user);
+        }
+        catch(Error error) {
+            return Response.status(500).entity(error).build();
+        }
+
+        //store in cache
+        if(newUser != null) {
+            cache.put(newUser.getId(), newUser);
+        }
+        return Response.ok().entity(newUser).build();
     }
 
     @PUT()

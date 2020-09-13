@@ -20,8 +20,9 @@ public class UsersService {
         return this.usersDAO.getUsers();
     }
 
-    public void addUser(User user) {
-        this.usersDAO.addUser(user);
+    public User addUser(User user) {
+       this.usersDAO.addUser(user);
+       return this.usersDAO.getRecentlyAddedUser();
     }
 
     public void updateUser(User user, int id) {
