@@ -17,3 +17,15 @@ steps:
     args:
     - 'push'
     - 'gcr.io/$PROJECT_ID/users-service:$SHORT_SHA'
+
+  - name: 'gcr.io/cloud-builders/kubectl'
+    id: Deploy
+    args:
+    - 'replace'
+    - 'deployment'
+    - '-f'
+    - './kubernetes/production/users-service-deployment.yaml'
+    env:
+    - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=users-service-cluster' 
+ 
