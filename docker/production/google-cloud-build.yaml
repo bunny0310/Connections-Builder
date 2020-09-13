@@ -6,7 +6,7 @@ steps:
     args:
     - 'build'
     - '- <'
-    -'Dockerfile'
+    - 'Dockerfile'
     - '-t'
     - 'gcr.io/$PROJECT_ID/users-service:$SHORT_SHA'
     - '.'
