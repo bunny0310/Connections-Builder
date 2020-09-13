@@ -4,7 +4,8 @@ steps:
 - name: 'gcr.io/cloud-builders/kubectl'
   id: Deploy
   args:
-  - 'replace deployment'
+  - 'replace'
+  -'deployment'
   - '-f'
   - 'users-service-deployment.yaml'
   env:
