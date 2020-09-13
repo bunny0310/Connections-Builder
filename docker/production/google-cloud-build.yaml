@@ -20,11 +20,12 @@ steps:
 
   - name: 'gcr.io/cloud-builders/kubectl'
     id: Deploy
+    dir: './kubernetes/production'
     args:
     - 'replace'
     - 'deployment'
     - '-f'
-    - '//kubernetes/production/users-service-deployment.yml'
+    - 'users-service-deployment.yaml'
     env:
     - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
     - 'CLOUDSDK_CONTAINER_CLUSTER=users-service-cluster' 
