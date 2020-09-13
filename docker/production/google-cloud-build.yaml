@@ -24,7 +24,7 @@ steps:
     - 'replace'
     - 'deployment'
     - '-f'
-    - './kubernetes/production/users-service-deployment.yaml'
+    - '//kubernetes/production/users-service-deployment.yml'
     env:
     - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
     - 'CLOUDSDK_CONTAINER_CLUSTER=users-service-cluster' 
