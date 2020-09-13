@@ -5,7 +5,7 @@ steps:
   id: Deploy
   args:
   - 'replace'
-  -'deployment'
+  - 'deployment'
   - '-f'
   - 'users-service-deployment.yaml'
   env:
