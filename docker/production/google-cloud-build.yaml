@@ -1,5 +1,4 @@
 steps:
-  - name: 'ls'
   # This step builds the container image.
   - name: 'gcr.io/cloud-builders/docker'
     id: Build
@@ -24,7 +23,7 @@ steps:
     - 'replace'
     - 'deployment'
     - '-f'
-    - 'users-service-deployment.yml'
+    - '/workspace/kubernetes/production/users-service-deployment.yml'
     env:
     - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
     - 'CLOUDSDK_CONTAINER_CLUSTER=users-service-cluster' 
