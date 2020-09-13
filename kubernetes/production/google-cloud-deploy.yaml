@@ -9,5 +9,4 @@ steps:
   - 'users-service-deployment.yaml'
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-east1-a'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=users-service-cluster'
-  
+  - 'CLOUDSDK_CONTAINER_CLUSTER=users-service-cluster' 
