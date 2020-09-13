@@ -4,9 +4,9 @@ steps:
 - name: 'gcr.io/cloud-builders/kubectl'
   id: Deploy
   args:
-  - 'apply'
+  - 'replace deployment'
   - '-f'
   - 'users-service-deployment.yaml'
   env:
-  - 'CLOUDSDK_COMPUTE_ZONE=us-east1-a'
+  - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
   - 'CLOUDSDK_CONTAINER_CLUSTER=users-service-cluster' 
