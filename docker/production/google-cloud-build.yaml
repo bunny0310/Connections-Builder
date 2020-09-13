@@ -4,7 +4,7 @@
   args:
   - 'build'
   - '-t'
-  - 'gcr.io/users-service-289022/users-service:v1'
+  - 'gcr.io/$PROJECT_ID/users-service:$SHORT_SHA'
   - '.'
 
 # This step pushes the image to Container Registry
@@ -14,4 +14,4 @@
   id: Push
   args:
   - 'push'
-  - 'gcr.io/users-service-289022/users-service:v1'
+  - 'gcr.io/$PROJECT_ID/users-service:$SHORT_SHA'
