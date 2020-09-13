@@ -23,6 +23,14 @@ steps:
     - 'delete'
     - 'deployment'
     - 'users-service'
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=users-service-cluster'
+
+
+  - name: 'gcr.io/cloud-builder/kubectl'
+    id: Spin up
+    args:
     - 'create'
     - '-f'
     - '/workspace/kubernetes/production/users-service-deployment.yml'
