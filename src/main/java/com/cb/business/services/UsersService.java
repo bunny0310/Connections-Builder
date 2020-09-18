@@ -25,8 +25,9 @@ public class UsersService {
        return this.usersDAO.getRecentlyAddedUser();
     }
 
-    public void updateUser(User user, int id) {
+    public User updateUser(User user, int id) {
         this.usersDAO.updateUser(user, id);
+        return this.usersDAO.getUser(id);
     }
 
     public void deleteUser(int id) {

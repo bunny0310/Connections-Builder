@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: users-service-container
-        image: gcr.io/users-service-289022/users-service:v1
+        image: gcr.io/cb-091520/users-service:v1
         imagePullPolicy: Always
         ports:
           - containerPort: 8080
@@ -38,7 +38,8 @@ spec:
         - name: DB_NAME
           valueFrom:
             secretKeyRef:
-              name: cloudsql-db-credentials
+              name: cloudsql-db-credentials  
+
               key: database
       - name: cloud-sql-proxy
         # It is recommended to use the latest version of the Cloud SQL proxy
@@ -53,7 +54,7 @@ spec:
 
           # Replace DB_PORT with the port the proxy should listen on
           # Defaults: MySQL: 3306, Postgres: 5432, SQLServer: 1433
-          - "-instances=users-service-289022:us-east1:mysql-db=tcp:3306"
+          - "-instances=cb-091520:us-east1:cb-091520=tcp:3306"
 
         # [START cloud_sql_proxy_k8s_volume_mount]
           # This flag specifies where the service account key can be found
@@ -73,76 +74,3 @@ spec:
         secret:
           secretName: cloudsql-instance-credentials
       # [START cloud_sql_proxy_k8s_volume_secret]
-
-
-
-
-
-
-
-# apiVersion: extensions/v1beta1
-# kind: Deployment
-# metadata:
-#   labels:
-#     app: users-service
-#   name: users-service
-#   annotations:
-#     deployment.kubernetes.io/revision: "1"
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: users-service
-#   template:
-#     metadata:
-#       labels:
-#         app: users-service
-#     spec:
-#       containers:
-#         - image: gcr.io/users-service-289022/users-service:v1
-#           imagePullPolicy: Always
-#           name: users-service-container
-#           ports:
-#             - containerPort: 8080
-#               name: app-port
-#               protocol: TCP
-#             - containerPort: 8081
-#               name: admin-port
-#               protocol: TCP
-#           env:
-#           - name: DB_USER
-#             valueFrom:
-#               secretKeyRef:
-#                 name: cloudsql-db-credentials
-#                 key: username
-#           - name: DB_PASSWORD
-#             valueFrom:
-#               secretKeyRef:
-#                 name: cloudsql-db-credentials
-#                 key: password
-#           resources: {}
-#         - name: cloudsql-proxy
-#           image: gcr.io/cloudsql-docker/gce-proxy:1.11
-#           command: ["/cloud_sql_proxy",
-#                     "-instances=lusers-service-289022:us-east1:mysql-db=tcp:3306",
-#                     "-credential_file=/secrets/cloudsql/credentials.json"]
-#           volumeMounts:
-#             - name: cloudsql-instance-credentials
-#               mountPath: /secrets/cloudsql
-#               readOnly: true
-#             - name: ssl-certs
-#               mountPath: /etc/ssl/certs
-#             - name: cloudsql
-#               mountPath: /cloudsql
-#       volumes:
-#         - name: cloudsql-instance-credentials
-#           secret:
-#             secretName: cloudsql-instance-credentials
-#         - name: cloudsql
-#           emptyDir:
-#         - name: ssl-certs
-#           hostPath:
-#             path: /etc/ssl/certs
-#       dnsPolicy: ClusterFirst
-#       restartPolicy: Always
-#       schedulerName: default-scheduler

@@ -35,7 +35,7 @@ public class UsersResource {
         if(ret != null) {
             cache.put(id, ret);
         }
-        return Response.ok().entity(usersService.getUser(id)).build();
+        return Response.ok().entity(ret).build();
     }
 
     @POST()
@@ -58,7 +58,11 @@ public class UsersResource {
     @PUT()
     @Path("/{id}")
     public Response updateUser(final @NotNull User user, @PathParam("id") final int id){
-        this.usersService.updateUser(user, id);
+        User updatedUser = null;
+        updatedUser = this.usersService.updateUser(user, id);
+        if(updatedUser != null) {
+            cache.put(updatedUser.getId(), updatedUser);
+        }
         return Response.ok().entity("{\"message\" : \"user updated!\"}").build();
     }
 

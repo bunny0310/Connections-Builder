@@ -25,7 +25,7 @@ steps:
     - 'users-service'
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=users-service-cluster'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
 
 
   - name: 'gcr.io/cloud-builders/kubectl'
@@ -36,5 +36,5 @@ steps:
     - '/workspace/kubernetes/production/users-service-deployment.yml'
     env:
     - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
-    - 'CLOUDSDK_CONTAINER_CLUSTER=users-service-cluster'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
  
