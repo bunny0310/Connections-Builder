@@ -31,4 +31,7 @@ public interface UsersDAO {
     @SqlQuery("SELECT * FROM users ORDER BY id DESC LIMIT 1")
     public User getRecentlyAddedUser();
 
+    @SqlQuery("SELECT * FROM users WHERE email = :email AND password = :password")
+    public List<User> verifyUser(@Bind("email") final String email, @Bind("password") final String password);
+
 }

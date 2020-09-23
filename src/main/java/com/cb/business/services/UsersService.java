@@ -33,4 +33,12 @@ public class UsersService {
     public void deleteUser(int id) {
         this.usersDAO.deleteUser(id);
     }
+
+    public boolean verifyUser(User user) {
+        List<User> users = this.usersDAO.verifyUser(user.getEmail(), user.getPassword());
+        if(users.size() == 1) {
+            return true;
+        }
+        return false;
+    }
 }

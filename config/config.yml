@@ -7,7 +7,7 @@ database:
   password: root
 
   # the JDBC URL
-  url: jdbc:mysql://104.196.133.223:3306/backend?useLegacyDatetimeCode=false&serverTimezone=UTC
+  url: jdbc:mysql://35.196.226.154:3306/backend?useLegacyDatetimeCode=false&serverTimezone=UTC
 
   # any properties specific to your JDBC driver:
   properties:

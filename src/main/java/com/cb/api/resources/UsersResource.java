@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import com.google.gson.JsonObject;
 
 @Path("/api/v1/users")
 @Consumes(MediaType.APPLICATION_JSON + "; charset=utf-8")
@@ -71,5 +72,19 @@ public class UsersResource {
     public Response deleteUser(@PathParam("id") final int id){
         this.usersService.deleteUser(id);
         return Response.ok().entity("{\"message\" : \"user deleted!\"}").build();
+    }
+
+    @POST()
+    @Path("/login")
+    public Response login(final @NotNull User user) {
+        if(user == null) {
+            return Response.status(422).entity("Empty or malformed JSON").build();
+        }
+        boolean authStatus = this.usersService.verifyUser(user);
+        JsonObject object = new JsonObject();
+        object.addProperty("authenticated", authStatus);
+        object.addProperty("email", authStatus ? user.getEmail() : null);
+        int status = authStatus ? 201 : 401;
+        return Response.status(status).entity(object.toString()).build();
     }
 }
