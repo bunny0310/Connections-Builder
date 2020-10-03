@@ -16,6 +16,10 @@ public class UsersService {
         return this.usersDAO.getUser(id);
     }
 
+    public User getUserFromEmail(String email) {
+        return this.usersDAO.getUserFromEmail(email);
+    }
+
     public List<User> getUsers() {
         return this.usersDAO.getUsers();
     }

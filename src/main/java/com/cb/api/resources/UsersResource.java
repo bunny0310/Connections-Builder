@@ -15,7 +15,8 @@ import com.google.gson.JsonObject;
 @Produces(MediaType.APPLICATION_JSON)
 public class UsersResource {
     private UsersService usersService;
-    private LRUCache<User> cache= new LRUCache<User>(10);
+    private LRUCache<Integer, User> cache= new LRUCache<Integer, User>(10);
+    private LRUCache<String, User> emailCache= new LRUCache<String, User>(10);
 
     public UsersResource(UsersService usersService) {
         this.usersService = usersService;
@@ -35,6 +36,26 @@ public class UsersResource {
         User ret = usersService.getUser(id);
         if(ret != null) {
             cache.put(id, ret);
+        }
+        return Response.ok().entity(ret).build();
+    }
+
+    @POST()
+    @Path("/searchByEmail")
+    public Response getUserFromEmail(final @NotNull User user) {
+        String email = user.getEmail();
+        if(email == "") {
+            JsonObject object = new JsonObject();
+            object.addProperty("message", "Invalid JSON or missing fields");
+            return Response.status(422).entity(object.toString()).build();
+        }
+        if(emailCache.get(email) != null) {
+
+            return Response.ok().entity(emailCache.get(email)).build();
+        }
+        User ret = usersService.getUserFromEmail(email);
+        if(ret != null) {
+            emailCache.put(email, ret);
         }
         return Response.ok().entity(ret).build();
     }

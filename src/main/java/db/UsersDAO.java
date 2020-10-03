@@ -16,6 +16,9 @@ public interface UsersDAO {
     @SqlQuery("SELECT * FROM users WHERE id = :id")
     public User getUser(@Bind("id") final int id);
 
+    @SqlQuery("SELECT * FROM users WHERE email = :email")
+    public User getUserFromEmail(@Bind("email") final String email);
+
     @SqlQuery("SELECT * FROM users")
     public List<User> getUsers();
 

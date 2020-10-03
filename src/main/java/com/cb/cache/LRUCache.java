@@ -2,13 +2,13 @@ package com.cb.cache;
 
 import java.util.HashMap;
 
-public class LRUCache<T> {
+public class LRUCache<K, V> {
     //create dummy nodes for head and tail
-    Node<T> head;
-    Node<T> tail;
+    Node<K, V> head;
+    Node<K, V> tail;
 
     //declare a hashmap
-    HashMap<Integer, Node> map;
+    HashMap<K, Node> map;
 
     //declare a variable to store the capacity allowed
     int capacity;
@@ -34,18 +34,18 @@ public class LRUCache<T> {
         node.next.prev = node.prev;
     }
 
-    public T get(int key) {
+    public V get(K key) {
         Node ret = map.containsKey(key) ? map.get(key) : null;
 
         if(ret != null) {
             removeNode(ret);
             addNode(ret);
-            return (T) ret.val;
+            return (V) ret.val;
         }
         return null;
     }
 
-    public void put(int key, T val) {
+    public void put(K key, V val) {
         Node ret = map.containsKey(key) ? map.get(key) : null;
 
         if(ret != null) {
@@ -66,17 +66,17 @@ public class LRUCache<T> {
     }
 }
 
-class Node<T> {
-    int key;
-    T val;
-    Node<T> prev;
-    Node<T> next;
+class Node<K, V> {
+    K key;
+    V val;
+    Node<K, V> prev;
+    Node<K, V> next;
 
     public Node() {
 
     }
 
-    public Node(int key, T val) {
+    public Node(K key, V val) {
         this.key = key;
         this.val = val;
     }
