@@ -1,13 +1,13 @@
 database:
   driverClass: com.mysql.cj.jdbc.Driver
   # the username
-  user: root
+  user: befd6909b06250
 
   # the password
-  password: root
+  password: f01905aa
 
-  # the JDBC URL
-  url: jdbc:mysql://35.196.226.154:3306/backend?useLegacyDatetimeCode=false&serverTimezone=UTC
+  # the JDBC URLx
+  url: jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_68337d006763af9?useLegacyDatetimeCode=false&serverTimezone=UTC&reconnect=true
 
   # any properties specific to your JDBC driver:
   properties:
