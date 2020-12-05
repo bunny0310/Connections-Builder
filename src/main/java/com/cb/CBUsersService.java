@@ -43,6 +43,6 @@ public class CBUsersService extends Application<DatabaseConfiguration> {
     }
 
     public static void main(String ...args) throws  Exception{
-        new CBUsersService().run(args);
+        new CBUsersService().run(new String[]{"server", "config/config.yml"});
     }
 }
