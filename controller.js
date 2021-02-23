@@ -88,4 +88,9 @@ const deleteUser = async (id) => {
     return deletedUser;
 }
 
-module.exports = {getUsers, insertUser, updateUser, getUser, deleteUser};
+const verifyUser = async (user) => {
+    const userObj = await User.findOne({'email': user.email, 'password': user.password});
+    return userObj;
+}
+
+module.exports = {getUsers, insertUser, updateUser, getUser, deleteUser, verifyUser};

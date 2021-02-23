@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {getUsers, insertUser, updateUser, getUser, deleteUser} = require('./controller');
+const {getUsers, insertUser, updateUser, getUser, deleteUser, verifyUser} = require('./controller');
 
 router.get('/', (req, res) => {
     getUsers().then((data)=>{
@@ -74,5 +74,28 @@ router.delete('/:id', (req, res) => {
         return res.status(500).json({"data": null, "msg": "error: " + err});
     })
 });
+
+router.post('/authorize', (req, res) => {
+    const body = req.body;
+    if(body.email === undefined || body.email === null || body.password === null || body.password === undefined) {
+        return res.status(400).json({"msg": "invalid format"});
+    }
+    const userDetails = {
+        email: body.email,
+        password: body.password
+    };
+
+    verifyUser(userDetails)
+    .then((data)=>{
+        if(data === null) {
+            return res.status(401).json({"msg": "unauthorized"});
+        }
+        return res.status(201).json({"msg": "authorized!"});
+    })
+    .catch((err) => {
+        return res.status(500).json({"msg": "error " + err});
+    })
+
+})
 
 module.exports = router;
