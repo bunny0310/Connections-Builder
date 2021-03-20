@@ -90,7 +90,11 @@ router.post('/authorize', (req, res) => {
         if(data === null) {
             return res.status(401).json({"msg": "unauthorized"});
         }
-        return res.status(201).json({"msg": "authorized!"});
+        return res.status(201).json({"msg": "authorized!", "data": {
+            "id": data._id,
+            "name": data.firstName + " " + data.lastName,
+            "email": data.email
+        }});
     })
     .catch((err) => {
         return res.status(500).json({"msg": "error " + err});
